@@ -345,10 +345,11 @@ def parse_settings_for_display(settings):
         bool: str
     }
     for k, v in settings.items():
-        data[str(k)] = action[type(v)](v)
-        length = len(data[k])
-        if length > max_length:
-            max_length = length
+        if v:
+            data[str(k)] = action[type(v)](v)
+            length = len(data[k])
+            if length > max_length:
+                max_length = length
     data['length'] = max_length
     return data
 
