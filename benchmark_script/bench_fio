@@ -52,6 +52,7 @@ def run_command(settings, benchmark, command):
     env.update(settings)
     env.update(benchmark)
     env.update({'OUTPUT': output_directory})
+    pprint.pprint(env)
     run_raw_command(command, env)
 
 
