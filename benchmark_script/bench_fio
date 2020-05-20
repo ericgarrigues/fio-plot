@@ -37,7 +37,7 @@ def run_raw_command(command, env=None):
         stderr = result.stderr.decode("UTF-8").strip()
         print(f"\nAn error occurred: {stderr} - {stdout}")
         sys.exit(1)
-    
+
     return result
 
 
@@ -213,7 +213,7 @@ def generate_test_list(settings):
         dataset.append(result)
 
     benchmark_list = itertools.product(*dataset)
-    #pprint.pprint([x for x in benchmark_list])
+    # pprint.pprint([x for x in benchmark_list])
     return [dict(zip(loop_items, item)) for item in benchmark_list]
 
 
@@ -247,6 +247,9 @@ def get_arguments(settings):
     ag.add_argument(
         "--duration", help=f"Override the default test duration per benchmark \
             (default: {settings['duration']})", type=int, default=settings['duration'])
+    ag.add_argument(
+        "--direct", help=f"If  value  is  true, use non-buffered I/O. This is usually O_DIRECT. \
+            (default: {settings['direct']})", type=int, default=settings['direct'])
     ag.add_argument(
         "-m", "--mode", help=f"List of I/O load tests to run (default: \
             {settings['mode']})", default=settings['mode'], nargs='+', type=str)
@@ -430,7 +433,8 @@ def check_settings(settings):
     if settings['type'] == 'directory':
         for item in settings['target']:
             if not os.path.exists(item):
-                print(f"\nThe target directory ({item}) doesn't seem to exist.\n")
+                print(
+                    f"\nThe target directory ({item}) doesn't seem to exist.\n")
                 sys.exit(5)
 
     for mode in settings['mode']:
@@ -438,11 +442,13 @@ def check_settings(settings):
             if settings['rwmixread']:
                 settings['loop_items'].append('rwmixread')
             else:
-                print(f"\nIf a mixed (read/write) mode is specified, please specify --rwmixread\n")
+                print(
+                    f"\nIf a mixed (read/write) mode is specified, please specify --rwmixread\n")
                 sys.exit(6)
         else:
             settings['filter_items'].append('rwmixread')
-    
+
+
 def check_encoding():
     try:
         print(u"\u3000")  # blank space
