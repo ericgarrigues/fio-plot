@@ -381,6 +381,7 @@ def display_header(settings, tests):
     estimated = "Estimated duration"
     print(f"{estimated:<{fl}}: {duration:<}")
     descriptions = get_argument_description()
+    pprint.pprint(settings.keys())
     for item in settings.keys():
         if item not in settings['filter_items']:
             description = descriptions[item]
