@@ -466,7 +466,7 @@ def check_if_fio_exists():
     if(shutil.which(command) is None):
         print("Fio executable not found in path. Is Fio installed?")
         print()
-    sys.exit(1)
+        sys.exit(1)
 
 
 def main():
