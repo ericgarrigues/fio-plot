@@ -467,6 +467,7 @@ def check_if_fio_exists():
         print()
         print("Fio executable not found in path. Is Fio installed?")
         print()
+    sys.exit(1)
 
 
 def main():
